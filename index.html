@@ -5,10 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <script defer src="index.js"></script>
-  <title>Party Planner</title>
+  <title>Find Local Parties</title>
 </head>
 <body>
-  <h1>Party Planner</h1>
+  <h2>Party Planner</h2>
+  <form id="addParty">
+    <label>
+      Event:
+      <input type="text" name="event" placeholder="Enter event name">
+    </label>
+    <label>
+      Date:
+      <input type="date" name="date" min="2023-12-01" max="2024-12-31">
+    </label>
+    <label>
+      Time:
+      <input type="time" name="time">
+    </label>
+    <label>
+      Location:
+      <input type="text" name="location" placeholder="City, State">
+    </label>
+    <label>
+      Description:
+      <input type="text" name="description" placeholder="Enter event description">
+    </label>
+    <button id="submit">Submit</button>
+  </form>
+  <h2>Events</h2>
   <ul id="parties"></ul>
 </body>
 </html>
