@@ -6,6 +6,7 @@ const state = {
 };
 
 const parties = document.querySelector("#parties");
+
 const addPartyForm = document.querySelector("#partyForm");
 addPartyForm.addEventListener("submit", addParty);
 
@@ -31,6 +32,11 @@ async function getParties() {
 
 // 2. Display party events on HTML using DOM
 function renderParties() {
+  if (!state.parties.length){
+    partyList.innerHTML = "<li>No parties are being hosted in your area</li>";
+    return;
+  }
+
   const partyPosts = state.parties.map((party) => {
     const li = document.createElement("li");
     li.innerHTML = `
@@ -41,9 +47,11 @@ function renderParties() {
     `;
 
     const remove = document.createElement("button");
-    remove.textContent = "remove";
-    remove.addEventListener("click", removePost);
-    li.append(remove);
+    remove.innerText = "remove";
+    remove.addEventListener("click", () => {
+      removeParty(party.id)
+    });
+    li.appendChild(remove);
     return li;
   });
   partyList.append(...partyPosts);
@@ -54,7 +62,7 @@ async function addParty(event) {
   event.preventDefault();
 
   try {
-     const res = await fetch (API_URL, {
+     const response = await fetch (API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -65,13 +73,35 @@ async function addParty(event) {
       }),
     });
 
-    if (res.ok) {
-      render();
-    } else {
-      throw new Error("Failed to create party post");
+    if (!response.ok) {
+      throw new Error("Failed to add party posting");
     }
 
+    render()
+
+    addPartyForm.name.value = "";
+    addPartyForm.description.value = "";
+    addPartyForm.date.value = "";
+    addPartyForm.location.value = "";
+    
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  };
+};
+
+// 4. Remove party post
+async function removeParty(id) {
+  try {
+    const response = await fetch (API_URL + `/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete party posting");
+    }
+    render()
+
+  } catch (error) {
+    console.error(error);
   };
 };
