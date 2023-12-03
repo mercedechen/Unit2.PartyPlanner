@@ -9,26 +9,27 @@
 </head>
 <body>
   <h2>Party Planner</h2>
-  <form id="addParty">
+  <form id="partyForm">
     <label>
-      Event:
-      <input type="text" name="event" placeholder="Enter event name">
+      Party:
+      <input type="text" name="name">
     </label>
     <label>
-      Date/Time:
-      <input type="datetime-local" name="datetime">
+      Date:
+      <input type="datetime-local" name="date" />
     </label>
     <label>
       Location:
-      <input type="text" name="location" placeholder="Enter event address">
+      <input type="text" name="location">
     </label>
     <label>
       Description:
-      <input type="text" name="description" placeholder="Enter event description">
+      <input type="text" name="description">
     </label>
-    <button id="submit">Submit</button>
+    <button>Submit</button>
   </form>
-  <h2>Events</h2>
-  <ul id="parties"></ul>
+
+  <h2>Parties</h2>
+  <ul id="partyList"></ul>
 </body>
 </html>
