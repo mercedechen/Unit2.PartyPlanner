@@ -6,7 +6,6 @@ const state = {
 };
 
 const parties = document.querySelector("#parties");
-
 const addPartyForm = document.querySelector("#partyForm");
 addPartyForm.addEventListener("submit", addParty);
 
@@ -48,10 +47,8 @@ function renderParties() {
 
     const remove = document.createElement("button");
     remove.innerText = "remove";
-    remove.addEventListener("click", () => {
-      removeParty(party.id)
-    });
     li.appendChild(remove);
+    li.addEventListener("click", () => removeParty(party.id));
     return li;
   });
   partyList.append(...partyPosts);
@@ -77,13 +74,13 @@ async function addParty(event) {
       throw new Error("Failed to add party posting");
     }
 
-    render()
-
+    render();
+    
     addPartyForm.name.value = "";
     addPartyForm.description.value = "";
-    addPartyForm.date.value = "";
+    addPartyForm.date.value = ""
     addPartyForm.location.value = "";
-    
+
   } catch (error) {
     console.error(error);
   };
@@ -99,7 +96,8 @@ async function removeParty(id) {
     if (!response.ok) {
       throw new Error("Failed to delete party posting");
     }
-    render()
+
+    render();
 
   } catch (error) {
     console.error(error);
